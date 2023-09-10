@@ -3,10 +3,11 @@ import plotly.express as px
 from glob import glob
 import re
 import datetime
+
 from nltk.sentiment import SentimentIntensityAnalyzer
 analyzer = SentimentIntensityAnalyzer()
 
-
+# Getting the lists for plotting
 filepaths = glob("diary_pages/*.txt")
 date_list = []
 pos_list = []
@@ -24,13 +25,13 @@ for filepath in filepaths:
     pos_list.append(score["pos"])
     neg_list.append(score["neg"])
 
+
+# Streamlit part
 st.title("Diary Tone")
 st.subheader("Positivity")
 
-
 figure_pos = px.line(x=date_list, y=pos_list, labels={"x": "Date",
                                                   "y": "Positivity"})
-
 st.plotly_chart(figure_pos)
 
 st.subheader("Negativity")
